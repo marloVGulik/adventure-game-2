@@ -6,12 +6,71 @@ body {
     width: 100%;
     height: 100%;
     margin: 0;
-    position: relative;
-    top: -20px;
-    background-size: cover;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-repeat: no-repeat;
+    background-color: #000;
+    background-size: 100% 100%;
     background-image: url();
+    color: #FFFFFF;
+    text-align: center;
 }
 #game-container {
     position: relative;
+    display: block;
+    width: 75%;
+    height: 75%;
+    background-color: #00000080;
+    margin: auto;
+    border: 2px solid #FFFFFF;
+    border-radius: 4px;
     top: 50px;
+}
+#title {
+    
+}
+#description {
+    text-align: left;
+    padding: 1%;
+    display: block;
+    width: 98%;
+    height: 100px;
+}
+#game-buttons {
+    position: absolute;
+    bottom: 5px;
+    width: 98%;
+    padding: 1%;
+    margin: 0;
+}
+#button1 {
+    width: 100%;
+    height: 50px;
+    display: block;
+    background-color: #00000080;
+    border: 1px solid aliceblue;
+    color: aliceblue;
+    margin: 5px 0 0 0;
+}
+#button2 {
+    width: 100%;
+    height: 50px;
+    display: block;
+    background-color: #00000080;
+    border: 1px solid aliceblue;
+    color: aliceblue;
+    margin: 5px 0 0 0;
+}
+#button3 {
+    width: 100%;
+    height: 50px;
+    display: block;
+    background-color: #00000080;
+    border: 1px solid aliceblue;
+    color: aliceblue;
+    margin: 5px 0 0 0;
+}
+#inventory-item {
+    float: left;
 }

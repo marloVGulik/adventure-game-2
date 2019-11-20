@@ -28,24 +28,31 @@ function changeLevel(info) { // Change level on page
 
     // Show (or don't show) buttons on screen
     if(info.buttons.button1.shown) {
-        button1.style.display = "initial";
+        button1.style.display = "block";
+        button1.addEventListener("click", function() {loadLevel(info.buttons.button1.levelName)});
     } else {
         button1.style.display = "none";
     }
     if(info.buttons.button2.shown) {
-        button2.style.display = "initial";
+        button2.style.display = "block";
+        button2.addEventListener("click", function() {loadLevel(info.buttons.button2.levelName)});
     } else {
         button2.style.display = "none";
     }
     if(info.buttons.button3.shown) {
-        button3.style.display = "initial";
+        button3.style.display = "block";
+        button3.addEventListener("click", function() {loadLevel(info.buttons.button3.levelName)});
     } else {
         button3.style.display = "none";
     }
+    
+    // button1.addEventListener("click", loadLevel(info.buttons.button1.levelName));
+    // button2.addEventListener("click", loadLevel(info.buttons.button2.levelName));
+    // button3.addEventListener("click", loadLevel(info.buttons.button3.levelName));
 
-    button1.onclick = info.buttons.button1.levelName;
-    button2.onclick = info.buttons.button2.levelName;
-    button3.onclick = info.buttons.button3.levelName;
+    // button1.onclick = `loadLevel(${info.buttons.button1.levelName})`;
+    // button2.onclick = `loadLevel(${info.buttons.button2.levelName})`;
+    // button3.onclick = `loadLevel(${info.buttons.button3.levelName})`;
     
     button1.innerHTML = info.buttons.button1.text;
     button2.innerHTML = info.buttons.button2.text;
@@ -55,6 +62,7 @@ function changeLevel(info) { // Change level on page
     document.getElementById(info.currentLevelName).remove();
 }
 function loadLevel(levelName) { // Load JS info
+    console.log(`Loading : ${levelName}`)
     var doc = document.createElement("script");
     doc.id = levelName;
     doc.src = `data/levels/${levelName}`;
@@ -62,4 +70,4 @@ function loadLevel(levelName) { // Load JS info
     document.body.appendChild(doc);
 }
 
-loadLevel("start.js");
+loadLevel("start/start1.js");
