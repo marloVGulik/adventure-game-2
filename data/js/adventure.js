@@ -10,7 +10,6 @@ infoStruct = {
     },
     currentLevelName : undefined
 };
-var inventory = [];
 
 // Get page info
 var title = document.getElementById("title");
@@ -21,6 +20,8 @@ var button1 = document.getElementById("button1");
 var button2 = document.getElementById("button2");
 var button3 = document.getElementById("button3");
 
+var inv = document.getElementById("inventoryItem");
+inv.alt = "Inventory is empty";
 function changeLevel(info) { // Change level on page
     title.innerHTML = info.title;
     description.innerHTML = info.description;
@@ -68,6 +69,14 @@ function loadLevel(levelName) { // Load JS info
     doc.src = `data/levels/${levelName}`;
     doc.type = "text/javascript";
     document.body.appendChild(doc);
+}
+
+function pickUp(item) {
+    if(item == "RKey") {
+        inv.src = "data/images/RKey.png";
+    } else if(item == "Key") {
+        inv.src = "data/images/Key.png";
+    }
 }
 
 loadLevel("start/start1.js");
