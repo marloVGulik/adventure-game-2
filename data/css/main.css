@@ -50,6 +50,7 @@ body {
     display: block;
     background-color: #00000080;
     border: 1px solid aliceblue;
+    border-radius: 2px;
     color: aliceblue;
     margin: 5px 0 0 0;
 }
