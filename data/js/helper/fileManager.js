@@ -1,5 +1,6 @@
 var includeFiles = [
     { name: "data/js/helper/debug.js", type: "script" },
+    { name: "data/js/helper/map.js", type: "script"},
     { name: "data/js/levels/levels.js", type: "script" },
     { name: "data/js/levels/levelLoader.js", type: "script" },
     { name: "data/js/main.js", type: "script" },
@@ -28,8 +29,11 @@ var fileManager = {
     removeFile: function (fileID) {
         document.getElementById(fileID).remove();
     }
-}
+};
 
-includeFiles.forEach(function (file) {
-    fileManager.addFile(file);
-})
+
+for(var i = 0; i < includeFiles.length; i++) {
+    if(fileManager.addFile(includeFiles[i]) != 0) {
+        console.error("ERROR ADDING FILES");
+    }
+}
