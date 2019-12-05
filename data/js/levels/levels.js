@@ -63,7 +63,14 @@ function lvl015() {
     activatePickup("Pick up cooling cell", "icepack");
 }
 function lvl025() {
-
+    changeLevelVisibleData("The hologram", `You are in the hologram room, the hologram says to you: "Thou shall not ever leave this place, for as long as your life may last."`, "data/images/backgrounds/hologram.jpg", true);
+    buttons.forEach(function(button){
+        button.style.display = "none";
+    });
+    setTimeout(function() {
+        changeLevelAuto({x : 0, y : 0});
+        info.currentLoc.z = 6;
+    }, 5000);
 }
 function lvl035() {
 
@@ -73,13 +80,14 @@ function lvl105() {
 
 }
 function lvl115() {
-
+    changeLevelVisibleData("Hallway", "You are now in a hallway, choose what you will do", "data/images/backgrounds/furnace.jpg", true);
 }
 function lvl125() {
 
 }
 function lvl135() {
-
+    changeLevelVisibleData("Server room", "You are now in the server room", "data/images/backgrounds/servers.jpg", true);
+    activatePickup("Fill datapad with server data", "datapad");
 }
 // x : 2
 function lvl205() {
@@ -89,7 +97,7 @@ function lvl215() {
 
 }
 function lvl225() {
-
+    // ENDING
 }
 function lvl235() {
 
@@ -108,3 +116,61 @@ function lvl335() {
 
 }
 // Z : 5 ////////////////////////////////////////
+// Z : 6 ////////////////////////////////////////
+function lvl006() {
+
+}
+function lvl016() {
+
+}
+var teleportedByHologram = false;
+function lvl026() {
+    if(!teleportedByHologram) {
+        changeLevelVisibleData("The hologram", `The hologram disappears, and you are left in a dark room, feeling very disoriented. Your head hurts a lot. You see a light in front of you`);
+        buttons[0].innerHTML = "Go to the front";
+        buttons[1].style.display = "none";
+        buttons[2].style.display = "none";
+        teleportedByHologram = true;
+    } else {
+        changeLevelVisibleData("Hallway", "You are in the hallway.", "data/images/backgrounds/hallway2.jpg", true);
+    }
+}
+function lvl036() {
+    changeLevelVisibleData("Hallway", "You are in the hallway.", "data/images/backgrounds/hallway.jpg", true);    
+}
+function lvl106() {
+
+}
+function lvl116() {
+
+}
+function lvl126() {
+    
+}
+function lvl136() {
+    
+}
+function lvl206() {
+
+}
+function lvl216() {
+
+}
+function lvl226() {
+    
+}
+function lvl236() {
+    
+}
+function lvl306() {
+
+}
+function lvl316() {
+
+}
+function lvl326() {
+    
+}
+function lvl336() {
+    
+}

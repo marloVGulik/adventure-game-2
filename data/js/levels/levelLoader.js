@@ -71,7 +71,7 @@ function mainLoadLevel() {
                     break;
             }
             break;
-        case 5: // gameplay
+            case 5: // gameplay
             switch (info.currentLoc.x) {
                 case 0:
                     switch (info.currentLoc.y) {
@@ -134,6 +134,74 @@ function mainLoadLevel() {
                             break;
                         case 3:
                             lvl335();
+                            break;
+                    }
+                    break;
+            }
+            break;
+            case 6: // gameplay
+            switch (info.currentLoc.x) {
+                case 0:
+                    switch (info.currentLoc.y) {
+                        case 0:
+                            lvl006();
+                            break;
+                        case 1:
+                            lvl016();
+                            break;
+                        case 2:
+                            lvl026();
+                            break;
+                        case 3:
+                            lvl036();
+                            break;
+                    }
+                    break;
+                case 1:
+                    switch (info.currentLoc.y) {
+                        case 0:
+                            lvl106();
+                            break;
+                        case 1:
+                            lvl116();
+                            break;
+                        case 2:
+                            lvl126();
+                            break;
+                        case 3:
+                            lvl136();
+                            break;
+                    }
+                    break;
+                case 2:
+                    switch (info.currentLoc.y) {
+                        case 0:
+                            lvl206();
+                            break;
+                        case 1:
+                            lvl216();
+                            break;
+                        case 2:
+                            lvl226();
+                            break;
+                        case 3:
+                            lvl236();
+                            break;
+                    }
+                    break;
+                case 3:
+                    switch (info.currentLoc.y) {
+                        case 0:
+                            lvl306();
+                            break;
+                        case 1:
+                            lvl316();
+                            break;
+                        case 2:
+                            lvl326();
+                            break;
+                        case 3:
+                            lvl336();
                             break;
                     }
                     break;

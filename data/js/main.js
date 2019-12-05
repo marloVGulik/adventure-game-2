@@ -96,8 +96,16 @@ function changeLevelAuto(translation) {
     }
     buttons[4].style.display = "none";
     mainLoadLevel();
+    fillSquare(info.currentLoc);
+    var items = document.getElementsByClassName("inventoryItems");
+    for(var i = 0; i < items.length; i++) {
+        items[i].remove();
+    }
+    loadItems();
 }
 function changeLevelVisibleData(titleData, descriptionData, backgroundData, backgroundIsImage) {
+    loadItems();
+    fillSquare(info.currentLoc);
     title.innerHTML = titleData;
     description.innerHTML = descriptionData;
     if (backgroundIsImage) {
@@ -106,11 +114,15 @@ function changeLevelVisibleData(titleData, descriptionData, backgroundData, back
         background.backgroundImage = "none";
         background.backgroundColor = backgroundData;
     }
-    fillSquare(info.currentLoc);
 }
 
 function pickup(item) {
-    info.inventory.push(item);    
+    info.inventory.push({src : `data/images/items/${item}.png`, id : item});
+    buttons[4].style.display = "none"; 
+    loadItems();
+}
+
+function loadItems() {
     var items = document.getElementsByClassName("inventoryItems");
     for(var i = 0; i < items.length; i++) {
         items[i].remove();
@@ -118,21 +130,27 @@ function pickup(item) {
     info.inventory.forEach(function(item){
         var image = document.createElement("img");
         image.className = "inventoryItems";
-        image.src = `data/images/items/${item}.jpg`;
-        
+        image.src = item.src;
+        image.id = item.id;
+        document.getElementById("inventoryContainer").appendChild(image);
+        console.log("Created picture for item")
     });
 }
 
 function activatePickup(text, itemToPickUp) {
-    buttons[4].style.display = "block";
-    buttons[4].innerHTML = text;
-    buttons[4].onclick = function(){buttons[4].style.display = "none"; pickup(itemToPickUp)};
+    var isFound = false;
     info.inventory.forEach(function(item) {
-        if(item == itemToPickUp) {
+        if(item.id == itemToPickUp) {
+            isFound = true;
             buttons[4].style.display = "none";
             console.log("Item was already picked up");
         }
     });
+    if(!isFound) {
+        buttons[4].style.display = "block";
+        buttons[4].innerHTML = text;
+        buttons[4].onclick = function(){pickup(itemToPickUp)};
+    }
 }
 
 changeLevelAuto({ x: 0, y: 0, z: 0 });
