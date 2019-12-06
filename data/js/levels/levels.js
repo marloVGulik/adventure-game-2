@@ -77,13 +77,42 @@ function lvl035() {
 }
 // x : 1
 function lvl105() {
-
+    changeLevelVisibleData("A nice room", "You went inside a nice room", "data/images/backgrounds/bedroom.jpg", true);
 }
 function lvl115() {
-    changeLevelVisibleData("Hallway", "You are now in a hallway, choose what you will do", "data/images/backgrounds/furnace.jpg", true);
+    changeLevelVisibleData("Hallway", "You are now in a hallway, choose what you will do", "data/images/backgrounds/furnaceHall.jpg", true);
 }
 function lvl125() {
-
+    changeLevelVisibleData("Furnace room", "You are in the furnace room, it's very hot in here, and you notice that the furnaces are getting too hot, you might want to cool them down.", "data/images/backgrounds/furnace.jpg", true);
+    buttons.forEach(function(button){
+        button.style.display = "none";
+    });
+    buttons[2].style.display = "block";
+    buttons[2].innerHTML = "Go back";
+    buttons[4].style.display = "block";
+    buttons[4].innerHTML = "Ignore the heat and inspect further";
+    buttons[4].onclick = function(){
+        changeLevelVisibleData("Furnace room", "You close the door behind you, and inspect some further. Because of the heat, the metal in the door expanded and you are stuck. The furnace appears to be missing a cooling module.", "data/images/backgrounds/furnace.jpg", true);
+        buttons.forEach(function(button){
+            button.style.display = "none";
+        });
+        buttons[4].style.display = "block";
+        buttons[4].innerHTML = "Use the cooling pack to get out";
+        buttons[4].onclick = function(){
+            for(var i = 0; i < info.inventory.length; i++) {
+                if(info.inventory[i].id == "icepack") {
+                    clearTimeout(furnaceDeath);
+                    changeLevelAuto({x : 0, y : -1});
+                }
+            }
+        };
+        var furnaceDeath = setTimeout(function() {
+            changeLevelVisibleData("Furnace room", "You passed out and died because of the intense heat, and low oxygen levels in the furnace room.");
+            buttons.forEach(function(button) {
+                button.style.display = "none";
+            });
+        }, 3000);
+    }
 }
 function lvl135() {
     changeLevelVisibleData("Server room", "You are now in the server room", "data/images/backgrounds/servers.jpg", true);
@@ -91,10 +120,10 @@ function lvl135() {
 }
 // x : 2
 function lvl205() {
-
+    changeLevelVisibleData("Recreation", "This room appears to be for recreation purposes", "data/images/backgrounds/bedroomMain.jpeg", true);
 }
 function lvl215() {
-
+    changeLevelVisibleData("Nice hallway", "You are walking in a nice hallway, the door on the north side has 'NO ENTRY' on it.", "data/images/backgrounds/nicehallway.png", true);
 }
 function lvl225() {
     // ENDING
@@ -104,7 +133,8 @@ function lvl235() {
 }
 // x : 3
 function lvl305() {
-
+    changeLevelVisibleData("Bedroom", "You enter a bedroom, you spot a key.", "data/images/backgrounds/bedroomBed.jpg", true);
+    activatePickup("Pick up key", "key");
 }
 function lvl315() {
 

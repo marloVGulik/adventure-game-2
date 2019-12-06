@@ -61,14 +61,14 @@ function changeLevelAuto(translation) {
 
     
     var items = document.getElementsByClassName("inventoryItems");
-    for(var i = 0; i < items.length; i++) {
-        items[i].remove();
-    }
+    info.inventory.forEach(function(item) {
+        document.getElementById
+    })
     info.inventory.forEach(function(item){
         var image = document.createElement("img");
         image.className = "inventoryItems";
+        image.id = item;
         image.src = `data/images/items/${item}.jpg`;
-        
     });
 
     info.currentLoc = { x: info.currentLoc.x + translation.x, y: info.currentLoc.y + translation.y, z: info.currentLoc.z };
