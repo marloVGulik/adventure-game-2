@@ -134,7 +134,11 @@ function lvl235() {
 // x : 3
 function lvl305() {
     changeLevelVisibleData("Bedroom", "You enter a bedroom, you spot a key.", "data/images/backgrounds/bedroomBed.jpg", true);
-    activatePickup("Pick up key", "key");
+    activatePickup("Pick up the key", "key");
+    buttons[0].style.display = "none";
+    buttons[1].style.display = "none";
+    buttons[2].style.display = "none";
+    buttons[3].style.display = "block";
 }
 function lvl315() {
 
