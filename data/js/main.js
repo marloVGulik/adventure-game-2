@@ -1,4 +1,4 @@
-var info = {
+let info = {
     isDungeonScene: false,
     currentLoc: {x: 0, y: 0, z: 9},
     health: 100,
@@ -66,21 +66,14 @@ function setLevelDefaults() {
 function changeLevelAuto(translation) {
     // Set buttons to default
     setLevelDefaults();
-
-    
-    var items = document.getElementsByClassName("inventoryItems");
+    /*var items = document.getElementsByClassName("inventoryItems");
     info.inventory.forEach(function(item) {
-        document.getElementById
-    })
-    info.inventory.forEach(function(item){
-        var image = document.createElement("img");
-        image.className = "inventoryItems";
-        image.id = item;
-        image.src = `data/images/items/${item}.jpg`;
-    });
+        document.getElementById(item.id).remove();
+    });*/
+    loadItems();
 
-    info.currentLoc = { x: info.currentLoc.x + translation.x, y: info.currentLoc.y + translation.y, z: info.currentLoc.z };
-    debug(info.currentLoc, 1);
+    info.currentLoc.x = info.currentLoc.x + translation.x;
+    info.currentLoc.y = info.currentLoc.y + translation.y;
 
     if (3 >= info.currentLoc.y + 1) {
         buttons[0].style.display = "block";
@@ -103,16 +96,15 @@ function changeLevelAuto(translation) {
         buttons[3].style.display = "none";
     }
     buttons[4].style.display = "none";
+    if(isNaN(info.currentLoc.x) || isNaN(info.currentLoc.y)) {
+        console.error("FUCKING HOISTING REEEEE");
+        info.currentLoc = {x : "0", y : "3", z : 5};
+    }
+    console.log(info.currentLoc);
     mainLoadLevel();
     fillSquare(info.currentLoc);
-    var items = document.getElementsByClassName("inventoryItems");
-    for(var i = 0; i < items.length; i++) {
-        items[i].remove();
-    }
-    loadItems();
 }
 function changeLevelVisibleData(titleData, descriptionData, backgroundData, backgroundIsImage) {
-    loadItems();
     fillSquare(info.currentLoc);
     title.innerHTML = titleData;
     description.innerHTML = descriptionData;
@@ -130,11 +122,21 @@ function pickup(item) {
     buttons[4].style.display = "none"; 
     loadItems();
 }
-
 function loadItems() {
-    var items = document.getElementsByClassName("inventoryItems");
-    for(var i = 0; i < items.length; i++) {
-        items[i].remove();
+    var childs = document.getElementById("inventoryContainer").childNodes;
+    for(var i = 0; i < childs.length; i++) {
+        childs[i].remove();
+    }
+    if(document.getElementById("inventoryContainer").childNodes.length != 0) {
+        console.error("ERROR: not all items were removed");
+        var amountToRemove = info.inventory.length - document.getElementById("inventoryContainer").childNodes.length;
+        console.error(`Removing ${amountToRemove} items!`);
+        for(var i = 0; i < amountToRemove; i++) {
+            console.error("Removing item!");
+            if(childs[i] != undefined) {
+                childs[i].remove();
+            }
+        }
     }
     info.inventory.forEach(function(item){
         var image = document.createElement("img");

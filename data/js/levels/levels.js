@@ -76,7 +76,15 @@ function lvl025() {
     }, 3000);
 }
 function lvl035() {
-    // SNE
+    info.currentLoc.x = 0;
+    info.currentLoc.y = 3;
+    changeLevelAuto("Teleported to a bedroom", "You were teleported to a bedroom, and in that bedroom is cabinet with 'Keycards' written on it. Unfortunatly it is locked though, if one you had something to break it open with.", "data/images/backgrounds/bedroomBed.jpg", true);
+    buttons[2].style.display = "none";
+    info.inventory.forEach(function(item) {
+        if(item.id == "crowbar") {
+            activatePickup("Break open the kabinet with the crowbar, and take the keycards", "keycard");
+        }
+    })
 }
 // x : 1
 function lvl105() {
@@ -143,6 +151,11 @@ function lvl215() {
             setTimeout(function() {buttons[0].innerHTML = "Go north"}, 3000);
         }
     }
+    info.inventory.forEach(function(item) {
+        if(item.id == "key") {
+            activatePickup("Open kabinet and take crowbar", "crowbar");
+        }
+    })
 }
 function lvl225() {
     
@@ -302,6 +315,7 @@ function lvl016() {
                             changeLevelVisibleData("Attack evaded", "You win! The hologram slowly fades as it's power runs out, and it accepted it's defeat and teleports you to the last room", "data/images/backgrounds/hallway2.jpg", true);
                             hologram.remove();
                             nobuttons();
+                            win();
                         } else {
                             died();
                         }
@@ -314,6 +328,7 @@ function lvl016() {
                             changeLevelVisibleData("Attack evaded", "You win! The hologram slowly fades as it's power runs out, and it accepted it's defeat and teleports you to the last room", "data/images/backgrounds/hallway2.jpg", true);
                             hologram.remove();
                             nobuttons();
+                            win();
                         } else {
                             died();
                         }
@@ -322,6 +337,12 @@ function lvl016() {
             }, attack1.time + attack2.time + attack3.time + 2000);
         })
     }, 3000);
+    function win() {
+        setTimeout(function() {
+            info.currentLoc.z = "5";
+            changeLevelAuto({x : 0, y : 2});
+        }, 3000);
+    }
 }
 var teleportedByHologram = false;
 function lvl026() {
