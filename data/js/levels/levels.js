@@ -53,6 +53,9 @@ function lvl000() {
 
 }
 // END //////////////////////////////////////////
+// Z : 4 ////////////////////////////////////////
+
+// Z : 4 ////////////////////////////////////////
 // Z : 5 ////////////////////////////////////////
 // X : 0
 function lvl005() {
@@ -70,10 +73,10 @@ function lvl025() {
     setTimeout(function() {
         changeLevelAuto({x : 0, y : 0});
         info.currentLoc.z = 6;
-    }, 5000);
+    }, 3000);
 }
 function lvl035() {
-
+    // SNE
 }
 // x : 1
 function lvl105() {
@@ -81,6 +84,7 @@ function lvl105() {
 }
 function lvl115() {
     changeLevelVisibleData("Hallway", "You are now in a hallway, choose what you will do", "data/images/backgrounds/furnaceHall.jpg", true);
+    buttons[1].style.display = "none";
 }
 function lvl125() {
     changeLevelVisibleData("Furnace room", "You are in the furnace room, it's very hot in here, and you notice that the furnaces are getting too hot, you might want to cool them down.", "data/images/backgrounds/furnace.jpg", true);
@@ -124,9 +128,24 @@ function lvl205() {
 }
 function lvl215() {
     changeLevelVisibleData("Nice hallway", "You are walking in a nice hallway, the door on the north side has 'NO ENTRY' on it.", "data/images/backgrounds/nicehallway.png", true);
+    buttons[3].style.display = "none";
+    var showNoEntry = false;
+    info.inventory.forEach(function(item){
+        if(item.id == "lvl4Access") {
+            showNoEntry = true;
+        }
+    });
+    buttons[0].onclick = function() {
+        if(showNoEntry) {
+            changeLevelAuto({x : 0, y : 1});
+        } else {
+            buttons[0].innerHTML = "The door is locked, you need a level 4 access card for it";
+            setTimeout(function() {buttons[0].innerHTML = "Go north"}, 3000);
+        }
+    }
 }
 function lvl225() {
-    // ENDING
+    
 }
 function lvl235() {
 
@@ -140,22 +159,169 @@ function lvl305() {
     buttons[2].style.display = "none";
     buttons[3].style.display = "block";
 }
+var blurAmount = 0;
 function lvl315() {
-
+    changeLevelVisibleData("Nice hallway, big room on your right", "You're now in the big room you see on your right. The northern door seems to be malfunctioning, but you can still try it, to see if it works", "data/images/backgrounds/nicehallway.png", true);
+    buttons[2].style.display = "none";
+    buttons[0].onclick = function() {
+        var randomChance = Math.floor(Math.random() * 3);
+        if(randomChance == 0) {
+            changeLevelVisibleData("You died", "You died because of a malfunctioning door, which electrocuted you", "#000000", false);
+            buttons.forEach(function(button) {
+                button.style.display = "none";
+            });
+        } else if(randomChance == 1) {
+            buttons[0].innerHTML = "ERROR: Door malfunctioning";
+            setTimeout(function() {buttons[0].innerHTML = "Go north"}, 3000);
+        } else {
+            var fade = setInterval(() => {
+                if(blurAmount / 10 > 100) {
+                    changeLevelVisibleData("Your brain stopped working", "Your brain stopped functioning and you died", "#000000", false);
+                    document.body.style.filter = `opacity(100%) blur(0px)`;
+                    buttons.forEach(function(button){
+                        button.style.display = "none";
+                    });                    
+                    clearInterval(fade);
+                }
+                document.body.style.filter = `opacity(${100 - blurAmount / 10}%) blur(${blurAmount / 150}px)`;
+                //document.body.style.filter = `blur(${blurAmount / 250}px)`;
+                blurAmount++;
+            }, 50);
+        }
+    }
 }
 function lvl325() {
-
+    // SNE
 }
 function lvl335() {
-
+    // SNE
 }
 // Z : 5 ////////////////////////////////////////
 // Z : 6 ////////////////////////////////////////
 function lvl006() {
 
 }
+var pressedKey = null;
+function nobuttons() {
+    buttons.forEach(function(button) {
+        button.style.display = "none";
+    });
+}
 function lvl016() {
+    changeLevelVisibleData("The hologram is back", "Suddenly the hologram appears again, and it says: If you win this fight, I'll let you out of here, if you lose, your life will be taken!", "data/images/backgrounds/hallway2.jpg", true);
+    var hologram = document.createElement("img");
+    hologram.id = "hologram";
+    hologram.src = "data/images/characters/hologram.gif";
+    document.body.appendChild(hologram);
+    hologram = document.getElementById("hologram");
+    nobuttons();
+    setTimeout(function() {
+        changeLevelVisibleData("CONTROLS", "Press left or right arrow to evade. (Left if attack right, right if attack left)", "data/images/backgrounds/hallway2.jpg", true);
+        nobuttons();
+        setTimeout(function() {
+            var attack1 = {time : Math.floor(Math.random() * 10000), attack : Math.floor(Math.random() * 2)};
+            var attack2 = {time : Math.floor(Math.random() * 10000), attack : Math.floor(Math.random() * 2)};
+            var attack3 = {time : Math.floor(Math.random() * 10000), attack : Math.floor(Math.random() * 2)};
+            console.log(`${attack1.attack}, ${attack2.attack}, ${attack3.attack}`);
 
+            document.addEventListener('keydown', function(event) {
+                if(event.keyCode == 37) {
+                    pressedKey = "left";
+                } else if(event.keyCode == 39) {
+                    pressedKey = "right";
+                } else {
+                    pressedKey = null;
+                }
+            });
+            function died() {
+                changeLevelVisibleData("You died because you didn't evade the attack", "You died, try better next time", "#000000", false);
+                buttons.forEach(function(button) {
+                    button.style.display = "none";
+                });
+                clearTimeout(timeout1);
+                clearTimeout(timeout2);
+                clearTimeout(timeout3);
+            }
+
+            var timeout1 = setTimeout(function() {
+                if(attack1.attack == 0) {
+                    changeLevelVisibleData("RIGHT", "RIGHT ATTACK, MOVE LEFT!", "data/images/backgrounds/hallway2.jpg", true);
+                    nobuttons();
+                    setTimeout(function() {
+                        if(pressedKey == "left") {
+                            changeLevelVisibleData("Attack evaded", "You evaded the attack, prepare for the next one", "data/images/backgrounds/hallway2.jpg", true);
+                            nobuttons();
+                        } else {
+                            died();
+                        }
+                    }, 700);
+                } else {
+                    changeLevelVisibleData("LEFT", "LEFT ATTACK, MOVE RIGHT!", "data/images/backgrounds/hallway2.jpg", true);
+                    nobuttons();
+                    setTimeout(function() {
+                        if(pressedKey == "right") {
+                            changeLevelVisibleData("Attack evaded", "You evaded the attack, prepare for the next one", "data/images/backgrounds/hallway2.jpg", true);
+                            nobuttons();
+                        } else {
+                            died();
+                        }
+                    }, 700);
+                }
+            }, attack1.time);
+            var timeout2 = setTimeout(function() {
+                if(attack2.attack == 0) {
+                    changeLevelVisibleData("RIGHT", "RIGHT ATTACK, MOVE LEFT!", "data/images/backgrounds/hallway2.jpg", true);
+                    nobuttons();
+                    setTimeout(function() {
+                        if(pressedKey == "left") {
+                            changeLevelVisibleData("Attack evaded", "You evaded the attack, prepare for the next one", "data/images/backgrounds/hallway2.jpg", true);
+                            nobuttons();
+                        } else {
+                            died();
+                        }
+                    }, 700);
+                } else {
+                    changeLevelVisibleData("LEFT", "LEFT ATTACK, MOVE RIGHT!", "data/images/backgrounds/hallway2.jpg", true);
+                    nobuttons();
+                    setTimeout(function() {
+                        if(pressedKey == "right") {
+                            changeLevelVisibleData("Attack evaded", "You evaded the attack, prepare for the next one", "data/images/backgrounds/hallway2.jpg", true);
+                            nobuttons();
+                        } else {
+                            died();
+                        }
+                    }, 500);
+                }
+            }, attack1.time + attack2.time + 1000);
+            var timeout3 = setTimeout(function() {
+                if(attack3.attack == 0) {
+                    changeLevelVisibleData("RIGHT", "RIGHT ATTACK, MOVE LEFT!", "data/images/backgrounds/hallway2.jpg", true);
+                    nobuttons();
+                    setTimeout(function() {
+                        if(pressedKey == "left") {
+                            changeLevelVisibleData("Attack evaded", "You win! The hologram slowly fades as it's power runs out, and it accepted it's defeat and teleports you to the last room", "data/images/backgrounds/hallway2.jpg", true);
+                            hologram.remove();
+                            nobuttons();
+                        } else {
+                            died();
+                        }
+                    }, 500);
+                } else {
+                    changeLevelVisibleData("LEFT", "LEFT ATTACK, MOVE RIGHT!", "data/images/backgrounds/hallway2.jpg", true);
+                    nobuttons();
+                    setTimeout(function() {
+                        if(pressedKey == "right") {
+                            changeLevelVisibleData("Attack evaded", "You win! The hologram slowly fades as it's power runs out, and it accepted it's defeat and teleports you to the last room", "data/images/backgrounds/hallway2.jpg", true);
+                            hologram.remove();
+                            nobuttons();
+                        } else {
+                            died();
+                        }
+                    }, 500);
+                }
+            }, attack1.time + attack2.time + attack3.time + 2000);
+        })
+    }, 3000);
 }
 var teleportedByHologram = false;
 function lvl026() {
@@ -167,10 +333,13 @@ function lvl026() {
         teleportedByHologram = true;
     } else {
         changeLevelVisibleData("Hallway", "You are in the hallway.", "data/images/backgrounds/hallway2.jpg", true);
+        buttons[1].style.display = "none";
+        buttons[3].style.display = "none";
     }
 }
 function lvl036() {
-    changeLevelVisibleData("Hallway", "You are in the hallway.", "data/images/backgrounds/hallway.jpg", true);    
+    changeLevelVisibleData("Hallway", "You are in a hallway.", "data/images/backgrounds/hallway.jpg", true);
+    buttons[1].style.display = "none";
 }
 function lvl106() {
 

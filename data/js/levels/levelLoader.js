@@ -71,6 +71,74 @@ function mainLoadLevel() {
                     break;
             }
             break;
+            case 4: // gameplay
+            switch (info.currentLoc.x) {
+                case 0:
+                    switch (info.currentLoc.y) {
+                        case 0:
+                            lvl004();
+                            break;
+                        case 1:
+                            lvl014();
+                            break;
+                        case 2:
+                            lvl024();
+                            break;
+                        case 3:
+                            lvl034();
+                            break;
+                    }
+                    break;
+                case 1:
+                    switch (info.currentLoc.y) {
+                        case 0:
+                            lvl104();
+                            break;
+                        case 1:
+                            lvl114();
+                            break;
+                        case 2:
+                            lvl124();
+                            break;
+                        case 3:
+                            lvl134();
+                            break;
+                    }
+                    break;
+                case 2:
+                    switch (info.currentLoc.y) {
+                        case 0:
+                            lvl204();
+                            break;
+                        case 1:
+                            lvl214();
+                            break;
+                        case 2:
+                            lvl224();
+                            break;
+                        case 3:
+                            lvl234();
+                            break;
+                    }
+                    break;
+                case 3:
+                    switch (info.currentLoc.y) {
+                        case 0:
+                            lvl304();
+                            break;
+                        case 1:
+                            lvl314();
+                            break;
+                        case 2:
+                            lvl324();
+                            break;
+                        case 3:
+                            lvl334();
+                            break;
+                    }
+                    break;
+            }
+            break;
             case 5: // gameplay
             switch (info.currentLoc.x) {
                 case 0:

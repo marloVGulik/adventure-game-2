@@ -8,7 +8,15 @@ var info = {
 // Get page info and create new button
 var title = document.getElementById("title");
 var description = document.getElementById("description");
-var background = document.body.style;
+
+var background = document.createElement("div");
+background.id = "background";
+document.body.appendChild(background);
+var backgroundImg = document.createElement("img");
+backgroundImg.id = "backgroundImg";
+background = document.getElementById("background");
+background.appendChild(backgroundImg);
+backgroundImg = document.getElementById("backgroundImg");
 
 var button4 = document.createElement("button");
 button4.id = "button4";
@@ -109,9 +117,10 @@ function changeLevelVisibleData(titleData, descriptionData, backgroundData, back
     title.innerHTML = titleData;
     description.innerHTML = descriptionData;
     if (backgroundIsImage) {
-        background.backgroundImage = `url(${backgroundData})`;
+        backgroundImg.style.display = "block";
+        backgroundImg.src = backgroundData;
     } else {
-        background.backgroundImage = "none";
+        backgroundImg.style.display = "none";
         background.backgroundColor = backgroundData;
     }
 }
