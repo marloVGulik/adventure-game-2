@@ -76,8 +76,6 @@ function lvl025() {
     }, 3000);
 }
 function lvl035() {
-    info.currentLoc.x = 0;
-    info.currentLoc.y = 3;
     changeLevelAuto("Teleported to a bedroom", "You were teleported to a bedroom, and in that bedroom is cabinet with 'Keycards' written on it. Unfortunatly it is locked though, if one you had something to break it open with.", "data/images/backgrounds/bedroomBed.jpg", true);
     buttons[2].style.display = "none";
     info.inventory.forEach(function(item) {
@@ -338,10 +336,13 @@ function lvl016() {
         })
     }, 3000);
     function win() {
+        changeLevelAuto("JS_IS_BROKEN");/*
+        info.currentLoc.z = "5";
+        info.currentLoc.x = "0";
+        info.currentLoc.y = "3";
         setTimeout(function() {
-            info.currentLoc.z = "5";
-            changeLevelAuto({x : 0, y : 2});
-        }, 3000);
+            changeLevelAuto("JS_IS_BROKEN");
+        }, 3000);*/
     }
 }
 var teleportedByHologram = false;

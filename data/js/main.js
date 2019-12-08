@@ -72,8 +72,14 @@ function changeLevelAuto(translation) {
     });*/
     loadItems();
 
-    info.currentLoc.x = info.currentLoc.x + translation.x;
-    info.currentLoc.y = info.currentLoc.y + translation.y;
+    if(translation == "JS_IS_BROKEN") {
+        info.currentLoc = null;
+        info.currentLoc = {x : "0", y : "3", z : "5"};
+        debug("ERROR FUCK JS", 2);
+    } else {
+        info.currentLoc.x = info.currentLoc.x + parseInt(translation.x);
+        info.currentLoc.y = info.currentLoc.y + parseInt(translation.y);
+    }
 
     if (3 >= info.currentLoc.y + 1) {
         buttons[0].style.display = "block";
@@ -96,10 +102,6 @@ function changeLevelAuto(translation) {
         buttons[3].style.display = "none";
     }
     buttons[4].style.display = "none";
-    if(isNaN(info.currentLoc.x) || isNaN(info.currentLoc.y)) {
-        console.error("FUCKING HOISTING REEEEE");
-        info.currentLoc = {x : "0", y : "3", z : 5};
-    }
     console.log(info.currentLoc);
     mainLoadLevel();
     fillSquare(info.currentLoc);
