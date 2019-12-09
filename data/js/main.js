@@ -57,10 +57,10 @@ function setLevelDefaults() {
     buttons[2].innerHTML = "Go south";
     buttons[3].innerHTML = "Go west";
 
-    buttons[0].onclick = function () { changeLevelAuto({ x: 0, y: 1, z: 0 }); };
-    buttons[1].onclick = function () { changeLevelAuto({ x: 1, y: 0, z: 0 }); };
-    buttons[2].onclick = function () { changeLevelAuto({ x: 0, y: -1, z: 0 }); };
-    buttons[3].onclick = function () { changeLevelAuto({ x: -1, y: 0, z: 0 }); };
+    buttons[0].onclick = function () { changeLevelAuto({ x: 0, y: 1}); };
+    buttons[1].onclick = function () { changeLevelAuto({ x: 1, y: 0}); };
+    buttons[2].onclick = function () { changeLevelAuto({ x: 0, y: -1}); };
+    buttons[3].onclick = function () { changeLevelAuto({ x: -1, y: 0}); };
 }
 
 function changeLevelAuto(translation) {
@@ -72,14 +72,10 @@ function changeLevelAuto(translation) {
     });*/
     loadItems();
 
-    if(translation == "JS_IS_BROKEN") {
-        info.currentLoc = null;
-        info.currentLoc = {x : "0", y : "3", z : "5"};
-        debug("ERROR FUCK JS", 2);
-    } else {
-        info.currentLoc.x = info.currentLoc.x + parseInt(translation.x);
-        info.currentLoc.y = info.currentLoc.y + parseInt(translation.y);
-    }
+    
+    console.log(info.currentLoc);
+    info.currentLoc.x += translation.x;
+    info.currentLoc.y += translation.y;
 
     if (3 >= info.currentLoc.y + 1) {
         buttons[0].style.display = "block";
@@ -130,15 +126,18 @@ function loadItems() {
         childs[i].remove();
     }
     if(document.getElementById("inventoryContainer").childNodes.length != 0) {
-        console.error("ERROR: not all items were removed");
-        var amountToRemove = info.inventory.length - document.getElementById("inventoryContainer").childNodes.length;
-        console.error(`Removing ${amountToRemove} items!`);
-        for(var i = 0; i < amountToRemove; i++) {
-            console.error("Removing item!");
-            if(childs[i] != undefined) {
-                childs[i].remove();
+        var amountToRemove;
+        do {
+            console.warn("ERROR: not all items were removed");
+            amountToRemove = info.inventory.length - document.getElementById("inventoryContainer").childNodes.length;
+            console.warn(`Removing ${amountToRemove} items!`);
+            for(var i = 0; i < amountToRemove; i++) {
+                console.warn("Removing item!");
+                if(childs[i] != undefined) {
+                    childs[i].remove();
+                }
             }
-        }
+        } while (document.getElementById("inventoryContainer").childNodes.length != 0);
     }
     info.inventory.forEach(function(item){
         var image = document.createElement("img");

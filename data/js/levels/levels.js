@@ -50,7 +50,22 @@ function lvl109() {
 // START ////////////////////////////////////////
 // END //////////////////////////////////////////
 function lvl000() {
-
+    changeLevelVisibleData("The end?", "You walk out the base and call your boss to let him know that you succeeded. He lets a ship come to you and pick you up", "data/images/backgrounds/picture.jpg", true);
+    buttons[1].style.display = "none";
+    buttons[0].innerHTML = "Go home";
+}
+function lvl010() {
+    changeLevelVisibleData("Your home", "You get home safely", "data/images/backgrounds/end.jpg", true);
+    buttons.forEach(function(button){
+        button.style.display = "none";
+    });
+    info.inventory.forEach(function(item) {
+        if(item.id == "datapad") {
+            setTimeout(function() {
+                changeLevelVisibleData("Destruction 100", "You plugged the datapad into your computer and accidentaly release a dangerous virus, when you look outside you see the world turn into chaos. You died, but this time you weren't the only one", "data/images/backgrounds/datapad-end.jpg", true);
+            }, 3000);
+        }
+    })
 }
 // END //////////////////////////////////////////
 // Z : 4 ////////////////////////////////////////
@@ -60,6 +75,14 @@ function lvl000() {
 // X : 0
 function lvl005() {
     changeLevelVisibleData("Elevator door", "You are now at the elevator door, choose your action", "data/images/backgrounds/entrance.jpg", true);   
+    info.inventory.forEach(function(item) {
+        if(item.id == "keycard") {
+            info.currentLoc = {x : 0, y : 0, z : 0};
+            buttons[4].style.display = "block";
+            buttons[4].innerHTML = "Go out of the base";
+            buttons[4].onclick = function() {changeLevelAuto({x : 0, y : 0})};
+        }
+    })
 }
 function lvl015() {
     changeLevelVisibleData("Cooling center", "You are now in the cooling center, choose what you will do", "data/images/backgrounds/cooling.jpg", true);
@@ -76,13 +99,13 @@ function lvl025() {
     }, 3000);
 }
 function lvl035() {
-    changeLevelAuto("Teleported to a bedroom", "You were teleported to a bedroom, and in that bedroom is cabinet with 'Keycards' written on it. Unfortunatly it is locked though, if one you had something to break it open with.", "data/images/backgrounds/bedroomBed.jpg", true);
+    changeLevelVisibleData("Teleported to a bedroom", "You were teleported to a bedroom, and in that bedroom is cabinet with 'Keycards' written on it. Unfortunatly it is locked though, if one you had something to break it open with.", "data/images/backgrounds/bedroomBed.jpg", true);
     buttons[2].style.display = "none";
     info.inventory.forEach(function(item) {
         if(item.id == "crowbar") {
             activatePickup("Break open the kabinet with the crowbar, and take the keycards", "keycard");
         }
-    })
+    });
 }
 // x : 1
 function lvl105() {
@@ -127,6 +150,7 @@ function lvl125() {
 function lvl135() {
     changeLevelVisibleData("Server room", "You are now in the server room", "data/images/backgrounds/servers.jpg", true);
     activatePickup("Fill datapad with server data", "datapad");
+    buttons[2].style.display = "none";
 }
 // x : 2
 function lvl205() {
@@ -137,7 +161,7 @@ function lvl215() {
     buttons[3].style.display = "none";
     var showNoEntry = false;
     info.inventory.forEach(function(item){
-        if(item.id == "lvl4Access") {
+        if(item.id == "keycard") {
             showNoEntry = true;
         }
     });
@@ -153,13 +177,21 @@ function lvl215() {
         if(item.id == "key") {
             activatePickup("Open kabinet and take crowbar", "crowbar");
         }
-    })
+    });
 }
 function lvl225() {
-    
+    changeLevelVisibleData("Hallway", "You are now in a hallway", "data/images/backgrounds/hallway2.jpg", true);
+    buttons[1].style.display = "none";
+    buttons[2].style.display = "none";
+    buttons[3].style.display = "none";
+    info.inventory.forEach(function(item) {
+        if(item.id == "keycard") {
+            buttons[2].style.display = "block";
+        }
+    });
 }
 function lvl235() {
-
+    changeLevelVisibleData("Server cooling room", "You're now in the server cooling room", "data/images/backgrounds/server-cooling.jpg", true);
 }
 // x : 3
 function lvl305() {
@@ -205,7 +237,8 @@ function lvl325() {
     // SNE
 }
 function lvl335() {
-    // SNE
+    changeLevelVisibleData("Hallway", "You're now in a hallway", "data/images/backgrounds/hallway.jpg", true);
+    buttons[2].style.display = "none";
 }
 // Z : 5 ////////////////////////////////////////
 // Z : 6 ////////////////////////////////////////
@@ -333,16 +366,15 @@ function lvl016() {
                     }, 500);
                 }
             }, attack1.time + attack2.time + attack3.time + 2000);
-        })
+        });
     }, 3000);
     function win() {
-        changeLevelAuto("JS_IS_BROKEN");/*
-        info.currentLoc.z = "5";
-        info.currentLoc.x = "0";
-        info.currentLoc.y = "3";
-        setTimeout(function() {
-            changeLevelAuto("JS_IS_BROKEN");
-        }, 3000);*/
+        info.currentLoc.z = 5;
+        buttons[0].onclick = function() {
+            changeLevelAuto({x : 0, y : 2});
+        }
+        buttons[0].style.display = "block";
+        buttons[0].innerHTML = "Continue";
     }
 }
 var teleportedByHologram = false;

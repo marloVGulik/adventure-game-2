@@ -88,5 +88,12 @@ function mainLoadLevel() {
             if(info.currentLoc.y == 2) lvl326();
             if(info.currentLoc.y == 3) lvl336();
         }
+    } else if(info.currentLoc.z == 0) {
+        if(info.currentLoc.x == 0) {
+            if(info.currentLoc.y == 0) lvl000();
+            if(info.currentLoc.y == 1) lvl010();
+            if(info.currentLoc.y == 2) lvl020();
+            if(info.currentLoc.y == 3) lvl030();
+        }
     }
 }
